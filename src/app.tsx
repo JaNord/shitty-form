@@ -38,7 +38,7 @@ export const App = () => {
 
   return (
     <div className="max-w-md mt-5 ml-auto mr-auto">
-      <div className="form-control space-y-2">
+      <div className="form-control space-y-1">
         <span className="">Namn</span>
         <input
           type="text"
@@ -47,7 +47,6 @@ export const App = () => {
           onChange={({ target }) => setValue(target.name, target.value)}
           className="input input-bordered input-primary w-full"
         />
-
         <span className="">Email</span>
         <input
           type="text"
@@ -66,7 +65,6 @@ export const App = () => {
             onChange={({ target }) => setValue(target.name, target.checked)}
           />
         </label>
-
         <span>Val av mat</span>
         <select
           name="menu"
@@ -77,7 +75,6 @@ export const App = () => {
           <option label="Carnivore" value="carnivore" />
           <option label="Herbivore" value="herbivore" />
         </select>
-
         <span>Val av dryck</span>
         <select
           name="drink"
@@ -88,7 +85,6 @@ export const App = () => {
           <option label="Poseidon" value="poseidon" />
           <option label="Dionysus" value="dionysus" />
         </select>
-
         <span className="">Allergier och specialdieter:</span>
         <input
           type="text"
@@ -97,7 +93,6 @@ export const App = () => {
           onChange={({ target }) => setValue(target.name, target.value)}
           className="input input-bordered input-primary w-full"
         />
-
         <label className="label cursor-pointer">
           <span className="label-text">Är du Date medlem?</span>
           <input
@@ -108,7 +103,6 @@ export const App = () => {
             className="checkbox checkbox-primary"
           />
         </label>
-
         <span className="">Bordssällskaps önskemål</span>
         <input
           type="text"
@@ -117,7 +111,6 @@ export const App = () => {
           onChange={({ target }) => setValue(target.name, target.value)}
           className="input input-bordered input-primary w-full"
         />
-
         <span className="">Jag framför hälsning vid Solenna Akten</span>
         <input
           type="text"
@@ -126,7 +119,6 @@ export const App = () => {
           onChange={({ target }) => setValue(target.name, target.value)}
           className="input input-bordered input-primary w-full"
         />
-
         <span className="">Jag representerar (t.ex. en förening)</span>
         <input
           type="text"
@@ -135,7 +127,6 @@ export const App = () => {
           onChange={({ target }) => setValue(target.name, target.value)}
           className="input input-bordered input-primary w-full"
         />
-
         <span className="">Övrigt</span>
         <input
           type="text"
@@ -145,6 +136,7 @@ export const App = () => {
           className="input input-bordered input-primary w-full"
         />
       </div>
+      <button className="btn btn-primary mt-10 w-full">Send me Daddy</button>
     </div>
   );
 };
