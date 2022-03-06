@@ -1,6 +1,10 @@
+import { useState } from "react";
+
 export const CookieHeader = () => {
+  const [count, setCount] = useState<number>(1);
+
   return (
-    <div className="alert w-auto m-2">
+    <div className="alert w-auto m-2 transition-all z-10" style={{ height: `${count * 5}rem` }}>
       <div>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -9,17 +13,21 @@ export const CookieHeader = () => {
           className="stroke-error flex-shrink-0 w-6 h-6"
         >
           <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
             d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
           ></path>
         </svg>
-        <span>we use cookies for no reason.</span>
+        <span>We use cookies for no reason.</span>
       </div>
-      <div className="flex-none">
-        <button className="btn btn-sm btn-ghost">Deny</button>
-        <button className="btn btn-sm btn-primary">Accept me Daddy</button>
+      <div className="flex-none h-full">
+        <button className="btn btn-sm btn-ghost h-full" onClick={() => setCount(count + 1)}>
+          Deny
+        </button>
+        <button className="btn btn-sm btn-primary h-full" onClick={() => setCount(count > 1 ? count - 1 : 1)}>
+          Accept me Daddy
+        </button>
       </div>
     </div>
   );
