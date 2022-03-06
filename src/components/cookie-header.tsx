@@ -2,9 +2,13 @@ import { useState } from "react";
 
 export const CookieHeader = () => {
   const [count, setCount] = useState<number>(1);
+  const [hidden, setHidden] = useState<boolean>(false);
 
   return (
-    <div className="alert w-auto m-2 transition-all z-10" style={{ height: `${count * 5}rem` }}>
+    <div
+      className={`alert w-auto m-2 transition-all z-10 ${hidden ? "hidden" : ""} `}
+      style={{ height: `${count * 5}rem` }}
+    >
       <div>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -25,7 +29,17 @@ export const CookieHeader = () => {
         <button className="btn btn-sm btn-ghost h-full" onClick={() => setCount(count + 5)}>
           Deny Coksies
         </button>
-        <button className="btn btn-sm btn-primary h-full" onClick={() => setCount(count > 1 ? count - 1 : 1)}>
+        <button
+          className="btn btn-sm btn-primary h-full"
+          onClick={() => {
+            if (count == 1) {
+              setTimeout(() => setHidden(false), 40 * 1000);
+              setHidden(true);
+            } else {
+              setCount(count > 1 ? count - 1 : 1);
+            }
+          }}
+        >
           Accept Conkies
         </button>
       </div>
