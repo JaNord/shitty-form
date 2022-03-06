@@ -22,11 +22,11 @@ export const CookieHeader = () => {
         <span>We use cookies for no reason.</span>
       </div>
       <div className="flex-none h-full">
-        <button className="btn btn-sm btn-ghost h-full" onClick={() => setCount(count + 1)}>
-          Deny
+        <button className="btn btn-sm btn-ghost h-full" onClick={() => setCount(count + 5)}>
+          Deny Coksies
         </button>
         <button className="btn btn-sm btn-primary h-full" onClick={() => setCount(count > 1 ? count - 1 : 1)}>
-          Accept me Daddy
+          Accept Conkies
         </button>
       </div>
     </div>
