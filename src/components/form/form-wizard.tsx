@@ -12,7 +12,6 @@ export const FormWizard = () => {
 
   useEffect(() => {
     const w = screen.width;
-    console.log(w);
     if (w < 1024) {
       setWidth("600");
     }

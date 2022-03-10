@@ -19,7 +19,7 @@ export const DrawContainer = ({
   variant?: "primary" | "secondary" | "accent";
   width?: string | number;
 }) => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>();
   const ctxRef = useRef<CanvasRenderingContext2D>();
   const [isDrawing, setIsDrawing] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -52,7 +52,6 @@ export const DrawContainer = ({
       return;
     }
     ctxRef.current?.lineTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
-
     ctxRef.current?.stroke();
   };
 
@@ -78,6 +77,8 @@ export const DrawContainer = ({
       setFormState(name, val || fallBack[name]);
       bumpStepIndex();
     }
+    canvasRef.current = undefined;
+    ctxRef.current = undefined;
     setIsLoading(false);
   };
 
@@ -95,7 +96,7 @@ export const DrawContainer = ({
         onTouchEnd={endDrawing}
         onMouseMove={draw}
         onTouchMove={draw}
-        ref={canvasRef}
+        ref={canvasRef as any}
         width={width}
         height={height}
         color="black"
