@@ -53,12 +53,12 @@ export const DrawContainer = ({
   const sendImage = () => {
     const canvas = canvasRef.current?.toDataURL();
     if (canvas) {
-      var blobBin = atob(canvas.split(",")[1]);
-      var array = [];
-      for (var i = 0; i < blobBin.length; i++) {
+      const blobBin = atob(canvas.split(",")[1]);
+      const array = [];
+      for (let i = 0; i < blobBin.length; i++) {
         array.push(blobBin.charCodeAt(i));
       }
-      var file = new Blob([new Uint8Array(array)], { type: "image/png" });
+      const file = new Blob([new Uint8Array(array)], { type: "image/png" });
       getText(file).then((text) => {
         console.log(text);
       });
