@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { getText } from "../api";
 
 export const DrawContainer = ({
   width,
@@ -13,6 +14,8 @@ export const DrawContainer = ({
   const ctxRef = useRef<CanvasRenderingContext2D>();
   const [isDrawing, setIsDrawing] = useState<boolean>(false);
   const lineColor = "white";
+
+  const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
     if (canvasRef.current) {
@@ -46,15 +49,35 @@ export const DrawContainer = ({
     ctxRef.current?.closePath();
     setIsDrawing(false);
   };
+
+  const sendImage = () => {
+    const canvas = canvasRef.current?.toDataURL();
+    if (canvas) {
+      var blobBin = atob(canvas.split(",")[1]);
+      var array = [];
+      for (var i = 0; i < blobBin.length; i++) {
+        array.push(blobBin.charCodeAt(i));
+      }
+      var file = new Blob([new Uint8Array(array)], { type: "image/png" });
+      getText(file).then((text) => {
+        console.log(text);
+      });
+    }
+  };
   return (
-    <canvas
-      className={`border border-solid border-${variant} text-`}
-      onMouseDown={startDrawing}
-      onMouseUp={endDrawing}
-      onMouseMove={draw}
-      ref={canvasRef}
-      width={width}
-      height={height}
-    />
+    <>
+      <canvas
+        className={`border border-solid border-${variant} text-`}
+        onMouseDown={startDrawing}
+        onMouseUp={endDrawing}
+        onMouseMove={draw}
+        ref={canvasRef}
+        width={width}
+        height={height}
+      />
+      <button className="btn btn-primary" onClick={sendImage}>
+        Send
+      </button>
+    </>
   );
 };
