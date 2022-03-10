@@ -25,7 +25,7 @@ export const FormWizard = () => {
   if (step_index === steps.length) {
     return (
       <div className="lg:max-w-md sm:w-full p-3 mr-auto ml-auto text-center">
-        <h1>Tack för din anmälan!</h1>
+        <h1>Nästan klar!</h1>
         <span>Kontrollera dina uppgifter nedan:</span>
         {steps.map((step) => {
           const value = (formState as any)[step.name];

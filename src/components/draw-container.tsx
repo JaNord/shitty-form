@@ -10,13 +10,11 @@ export const DrawContainer = ({
   bumpStepIndex,
   height,
   step_index,
-  variant = "primary",
 }: {
   bumpStepIndex: () => void;
   className?: string;
   height?: string | number;
   step_index: number;
-  variant?: "primary" | "secondary" | "accent";
   width?: string | number;
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>();
@@ -89,7 +87,7 @@ export const DrawContainer = ({
   return (
     <>
       <canvas
-        className={`border border-solid border-${variant} text-`}
+        className="border border-solid border-primary"
         onMouseDown={startDrawing}
         onTouchStart={startDrawing}
         onMouseUp={endDrawing}
