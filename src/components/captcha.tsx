@@ -1,24 +1,47 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+const captachaImages = [
+  "/captcha/1.png",
+  "/captcha/2.png",
+  "/captcha/3.png",
+  "/captcha/4.png",
+  "/captcha/5.png",
+  "/captcha/6.png",
+  "/captcha/7.png",
+  "/captcha/8.png",
+  "/captcha/9.png",
+];
 
 export const Captcha = () => {
-  const [captcha, setCaptcha] = useState<string>("lorem ipsum");
+  const [captcha, setCaptcha] = useState<string>("");
   const [captchaAnswer, setCaptchaAnswer] = useState<string>("");
 
+  useEffect(() => {
+    const randomIndex = Math.floor(Math.random() * captachaImages.length);
+    setCaptcha(captachaImages[randomIndex]);
+  }, []);
+
+  const getRandomCaptcha = () => {
+    const randomIndex = Math.floor(Math.random() * captachaImages.length);
+    const randomCaptcha = captachaImages[randomIndex];
+    setCaptcha(randomCaptcha);
+  };
+
   const checkAnswer = () => {
-    if (captchaAnswer === captcha) {
-      alert("Rätt svar!");
+    if (captchaAnswer === "1337") {
+      alert("Clever you!");
+      // TODO: do sometihg here
     } else {
-      alert("Fel svar!");
-      setCaptcha("lorem ipsum dolor");
+      getRandomCaptcha();
     }
   };
 
   return (
     <div className="max-w-xl ml-auto mr-auto m-2 transition-all z-10 bg-slate-500 p-5 rounded-md mt-5 text-center">
-      <p>This captach will check your mathematical skills</p>
-      <span>Because computers are shitty at math</span>
+      <p>This captach will check your basic mathematical skills</p>
+      <span className="text-zinc-400">Because computers are shitty at math</span>
       <div className="bg-white rounded-md p-2 text-black mt-2">
-        <code>{captcha}</code>
+        <img src={captcha} alt="captcha" />
       </div>
       <form className="m-3">
         <input
