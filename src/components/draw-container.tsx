@@ -90,15 +90,18 @@ export const DrawContainer = ({
       <canvas
         className={`border border-solid border-${variant} text-`}
         onMouseDown={startDrawing}
+        onTouchStart={startDrawing}
         onMouseUp={endDrawing}
+        onTouchEnd={endDrawing}
         onMouseMove={draw}
+        onTouchMove={draw}
         ref={canvasRef}
         width={width}
         height={height}
         color="black"
       />
       <button className="btn btn-primary mt-3 mr-auto ml-auto" onClick={sendImage}>
-        Send
+        Lägg till
       </button>
     </>
   );

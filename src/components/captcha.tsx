@@ -12,7 +12,7 @@ const captachaImages = [
   "/captcha/9.png",
 ];
 
-export const Captcha = () => {
+export const Captcha = ({ onCorrectAnswer }: { onCorrectAnswer: () => void }) => {
   const [captcha, setCaptcha] = useState<string>("");
   const [captchaAnswer, setCaptchaAnswer] = useState<string>("");
 
@@ -29,17 +29,18 @@ export const Captcha = () => {
 
   const checkAnswer = () => {
     if (captchaAnswer === "1337") {
-      alert("Clever you!");
-      // TODO: do sometihg here
+      alert("Väl gjort!");
+      onCorrectAnswer();
     } else {
+      alert("Fel!");
       getRandomCaptcha();
     }
   };
 
   return (
     <div className="max-w-xl ml-auto mr-auto m-2 transition-all z-10 bg-slate-500 p-5 rounded-md mt-5 text-center">
-      <p>This captach will check your basic mathematical skills</p>
-      <span className="text-zinc-400">Because computers are shitty at math</span>
+      <p>Bevisa din värdighet att delta i festligheterna!</p>
+      <span className="text-zinc-400">Ange svaret på problement nedan</span>
       <div className="bg-white rounded-md p-2 text-black mt-2">
         <img src={captcha} alt="captcha" />
       </div>

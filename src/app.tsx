@@ -11,7 +11,6 @@ export const App = () => {
     <>
       <CookieHeader />
       <FormWizard />
-      <Captcha />
     </>
   );
 };

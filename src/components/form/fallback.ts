@@ -8,6 +8,6 @@ export const fallBack: { [key: string]: any } = {
   date_member: "No",
   seating_pref: "Vid bordet",
   greeting: "Hello",
-  guild_represented: "Yes",
+  guild_represented: "Hanken",
   misc: "Fisk",
 };
