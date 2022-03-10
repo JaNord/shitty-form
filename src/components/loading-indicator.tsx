@@ -1,5 +1,5 @@
-export const LoadingIndicator = () => (
-  <div className="text-center p-5">
+export const LoadingIndicator = ({ className }: { className?: string }) => (
+  <div className="text-center p-5 ">
     <div
       className="radial-progress text-secondary"
       style={

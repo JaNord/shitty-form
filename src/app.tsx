@@ -1,16 +1,16 @@
 import { Captcha } from "./components/captcha";
 import { CookieHeader } from "./components/cookie-header";
-import { DrawContainer } from "./components/draw-container";
-import { Form } from "./components/form";
-import { SimpleImageForm } from "./components/image-form";
+import FormWizard from "./components/form/form-wizard";
+import useStore from "./store";
 
 export const App = () => {
+  const formState = useStore((state) => state.formState);
+  console.log(formState);
+
   return (
     <>
       <CookieHeader />
-      <DrawContainer width="200" height="200" />
-      {/* <Form /> */}
-      <SimpleImageForm />
+      <FormWizard />
       <Captcha />
     </>
   );
