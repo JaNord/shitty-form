@@ -102,9 +102,9 @@ export const DrawContainer = ({
       } else {
         res = await getText(file);
       }
+
       const name = steps[step_index].name;
-      const _val = res?.text?.replace(/(\r\n|\n|\r)/gm, "");
-      const value = _val || hasDrawn ? "Kunde inte tyda handstilen." : "-";
+      const value = res?.text ? res.text : hasDrawn ? "Kunde inte tyda handstilen" : "-";
       setFormState(name, value);
       bumpStepIndex();
     }
