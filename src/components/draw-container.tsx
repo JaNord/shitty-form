@@ -8,14 +8,14 @@ import LoadingIndicator from "./loading-indicator";
 export const DrawContainer = ({
   width,
   bumpStepIndex,
-  height,
   step_index,
+  variant,
 }: {
   bumpStepIndex: () => void;
   className?: string;
-  height?: string | number;
   step_index: number;
-  width?: string | number;
+  variant: "primary" | "secondary" | "accent";
+  width: number;
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>();
   const ctxRef = useRef<CanvasRenderingContext2D>();
@@ -36,25 +36,50 @@ export const DrawContainer = ({
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         ctxRef.current = ctx;
       }
+
+      var heightRatio = 0.75;
+      canvas.width = width;
+      canvas.height = canvas.width * heightRatio;
     }
-  }, [canvasRef.current]);
+  }, [canvasRef.current, width]);
 
   const startDrawing = (e: any) => {
+    let x = e.nativeEvent.offsetX;
+    let y = e.nativeEvent.offsetY;
+
+    if (e.touches) {
+      const touch = e.touches[0];
+
+      x = touch.pageX - touch.target.offsetLeft;
+      y = touch.pageY - touch.target.offsetTop;
+    }
+
     ctxRef.current?.beginPath();
-    ctxRef.current?.moveTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
+    ctxRef.current?.moveTo(x, y);
     setIsDrawing(true);
   };
 
   const draw = (e: any) => {
+    let x = e.nativeEvent.offsetX;
+    let y = e.nativeEvent.offsetY;
+
+    if (e.nativeEvent.touches) {
+      const touch = e.touches[0];
+      x = touch.pageX - touch.target.offsetLeft;
+      y = touch.pageY - touch.target.offsetTop;
+    }
+
     if (!isDrawing) {
       return;
     }
-    ctxRef.current?.lineTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
+
+    ctxRef.current?.lineTo(x, y);
     ctxRef.current?.stroke();
   };
 
   const endDrawing = () => {
     ctxRef.current?.closePath();
+
     setIsDrawing(false);
   };
 
@@ -87,7 +112,7 @@ export const DrawContainer = ({
   return (
     <>
       <canvas
-        className="border border-solid border-primary"
+        className={`ml-auto mr-auto border border-solid border-${variant}`}
         onMouseDown={startDrawing}
         onTouchStart={startDrawing}
         onMouseUp={endDrawing}
@@ -95,11 +120,9 @@ export const DrawContainer = ({
         onMouseMove={draw}
         onTouchMove={draw}
         ref={canvasRef as any}
-        width={width}
-        height={height}
         color="black"
       />
-      <button className="btn btn-primary mt-3 mr-auto ml-auto" onClick={sendImage}>
+      <button className="btn btn-primary mt-3 mr-auto ml-auto justify-self-center" onClick={sendImage}>
         Lägg till
       </button>
     </>

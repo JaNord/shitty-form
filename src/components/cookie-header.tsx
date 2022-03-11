@@ -6,8 +6,8 @@ export const CookieHeader = () => {
 
   return (
     <div
-      className={`alert w-auto m-2 transition-all z-10 ${hidden ? "hidden" : ""} `}
-      style={{ height: `${count * 5}rem` }}
+      className={`alert  w-auto m-2 transition-all z-10 ${hidden ? "hidden" : ""} `}
+      style={{ minHeight: `${count * 5}rem` }}
     >
       <div>
         <svg
