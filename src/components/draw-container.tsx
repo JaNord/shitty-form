@@ -120,6 +120,7 @@ export const DrawContainer = ({
   return (
     <>
       <canvas
+        style={{ touchAction: "none" }}
         className={`ml-auto mr-auto border border-solid border-${variant}`}
         onMouseDown={startDrawing}
         onTouchStart={startDrawing}
