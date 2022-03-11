@@ -31,7 +31,6 @@ export const DrawContainer = ({
 
       const ctx = canvas.getContext("2d");
       if (ctx) {
-        console.log("set ctx");
         ctx.lineCap = "round";
         ctx.lineJoin = "round";
         ctx.strokeStyle = lineColor;
