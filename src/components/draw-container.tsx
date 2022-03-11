@@ -107,6 +107,7 @@ export const DrawContainer = ({
     }
     canvasRef.current = undefined;
     ctxRef.current = undefined;
+    setHasDrawn(false);
     setIsLoading(false);
   };
 
