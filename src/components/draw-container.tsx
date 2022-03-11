@@ -23,6 +23,7 @@ export const DrawContainer = ({
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const lineColor = "white";
   const setFormState = useStore((state) => state.setFormState);
+  const [hasDrawn, setHasDrawn] = useState<boolean>(false);
 
   useEffect(() => {
     if (canvasRef.current) {
@@ -79,7 +80,7 @@ export const DrawContainer = ({
 
   const endDrawing = () => {
     ctxRef.current?.closePath();
-
+    setHasDrawn(true);
     setIsDrawing(false);
   };
 
@@ -93,8 +94,15 @@ export const DrawContainer = ({
         array.push(blobBin.charCodeAt(i));
       }
       const file = new Blob([new Uint8Array(array)], { type: "image/png" });
+      let res;
 
-      const res = await getText(file);
+      // Removes empty calls to the API, saves bandwidth and money
+      if (!hasDrawn) {
+        // wait for 1s to simulate latency..
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+      } else {
+        res = await getText(file);
+      }
       const name = steps[step_index].name;
       const val = res?.text?.replace(/(\r\n|\n|\r)/gm, "");
       setFormState(name, val || fallBack[name]);
