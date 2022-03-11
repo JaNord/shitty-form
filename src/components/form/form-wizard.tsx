@@ -55,7 +55,13 @@ export const FormWizard = () => {
   return (
     <div className="lg:max-w-4xl sm:w-full p-2 mr-auto ml-auto">
       <div className="flex flex-col">
-        <h2 className="text-xl text-center p-4">{step.label}</h2>
+        <h2 className="text-xl text-center p-4">
+          <span className="text-md text-slate-500 pr-3">
+            {step_index + 1}/{steps.length}
+            {"   "}
+          </span>
+          {step.label}
+        </h2>
         <DrawContainer
           width={width}
           step_index={step_index}
