@@ -18,25 +18,28 @@ export const DrawContainer = ({
   const [isDrawing, setIsDrawing] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const lineColor = "white";
+  const heightRatio = 0.75;
   const setFormState = useStore((state) => state.setFormState);
   const [hasDrawn, setHasDrawn] = useState<boolean>(false);
 
   useEffect(() => {
     if (canvasRef.current) {
       const canvas = canvasRef.current;
+
+      canvas.width = width;
+      canvas.height = canvas.width * heightRatio;
+
       const ctx = canvas.getContext("2d");
       if (ctx) {
+        console.log("set ctx");
         ctx.lineCap = "round";
         ctx.lineJoin = "round";
         ctx.strokeStyle = lineColor;
         ctx.fillStyle = "black";
+        ctx.lineWidth = 5;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         ctxRef.current = ctx;
       }
-
-      const heightRatio = 0.75;
-      canvas.width = width;
-      canvas.height = canvas.width * heightRatio;
     }
   }, [canvasRef.current, width]);
 
@@ -107,7 +110,6 @@ export const DrawContainer = ({
     }
     canvasRef.current = undefined;
     ctxRef.current = undefined;
-    setHasDrawn(false);
     setIsLoading(false);
   };
 
