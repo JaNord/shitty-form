@@ -8,16 +8,14 @@ import LoadingIndicator from "./loading-indicator";
 export const DrawContainer = ({
   width,
   bumpStepIndex,
-  height,
   step_index,
   variant = "primary",
 }: {
   bumpStepIndex: () => void;
   className?: string;
-  height?: string | number;
   step_index: number;
   variant?: "primary" | "secondary" | "accent";
-  width?: string | number;
+  width: number;
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>();
   const ctxRef = useRef<CanvasRenderingContext2D>();
@@ -38,8 +36,12 @@ export const DrawContainer = ({
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         ctxRef.current = ctx;
       }
+
+      var heightRatio = 0.75;
+      canvas.width = width;
+      canvas.height = canvas.width * heightRatio;
     }
-  }, [canvasRef.current]);
+  }, [canvasRef.current, width]);
 
   const startDrawing = (e: any) => {
     let x = e.nativeEvent.offsetX;
@@ -110,7 +112,7 @@ export const DrawContainer = ({
   return (
     <>
       <canvas
-        className={`border border-solid border-${variant} text-`}
+        className={`ml-auto mr-auto border border-solid border-${variant} text-`}
         onMouseDown={startDrawing}
         onTouchStart={startDrawing}
         onMouseUp={endDrawing}
@@ -118,11 +120,9 @@ export const DrawContainer = ({
         onMouseMove={draw}
         onTouchMove={draw}
         ref={canvasRef as any}
-        width={width}
-        height={height}
         color="black"
       />
-      <button className="btn btn-primary mt-3 mr-auto ml-auto" onClick={sendImage}>
+      <button className="btn btn-primary mt-3 mr-auto ml-auto justify-self-center" onClick={sendImage}>
         Lägg till
       </button>
     </>

@@ -6,21 +6,25 @@ import steps from "./steps";
 
 export const FormWizard = () => {
   const [step_index, setStep_index] = useState<number>(0);
-  const [width, setWidth] = useState<string>("800");
+  const [width, setWidth] = useState<number>(800);
   const [canSubmit, setCanSubmit] = useState<boolean>(false);
   const { formState } = useStore();
 
   useEffect(() => {
-    const w = screen.width;
-    if (w < 1024) {
-      setWidth("600");
-    }
-    if (w < 480) {
-      setWidth("300");
-    } else {
-      setWidth("800");
-    }
-  }, []);
+    const resize = () => {
+      if (screen.width > 600) {
+        setWidth(600);
+      } else {
+        setWidth(screen.width - 20);
+      }
+    };
+    window.addEventListener("resize", resize);
+
+    resize();
+
+    // Remove event listener on cleanup
+    return () => window.removeEventListener("resize", resize);
+  }, [screen.width]);
 
   if (step_index === steps.length) {
     return (
@@ -49,11 +53,10 @@ export const FormWizard = () => {
   const step = steps[step_index];
 
   return (
-    <div className="lg:max-w-4xl sm:w-full mr-auto ml-auto">
-      <div>
+    <div className="lg:max-w-4xl sm:w-full p-2 mr-auto ml-auto">
+      <div className="flex flex-col">
         <h2 className="text-xl text-center p-4">{step.label}</h2>
         <DrawContainer
-          height={"300"}
           width={width}
           step_index={step_index}
           bumpStepIndex={() => setStep_index(step_index + 1)}
