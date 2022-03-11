@@ -42,21 +42,42 @@ export const DrawContainer = ({
   }, [canvasRef.current]);
 
   const startDrawing = (e: any) => {
+    let x = e.nativeEvent.offsetX;
+    let y = e.nativeEvent.offsetY;
+
+    if (e.touches) {
+      const touch = e.touches[0];
+
+      x = touch.pageX - touch.target.offsetLeft;
+      y = touch.pageY - touch.target.offsetTop;
+    }
+
     ctxRef.current?.beginPath();
-    ctxRef.current?.moveTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
+    ctxRef.current?.moveTo(x, y);
     setIsDrawing(true);
   };
 
   const draw = (e: any) => {
+    let x = e.nativeEvent.offsetX;
+    let y = e.nativeEvent.offsetY;
+
+    if (e.nativeEvent.touches) {
+      const touch = e.touches[0];
+      x = touch.pageX - touch.target.offsetLeft;
+      y = touch.pageY - touch.target.offsetTop;
+    }
+
     if (!isDrawing) {
       return;
     }
-    ctxRef.current?.lineTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
+
+    ctxRef.current?.lineTo(x, y);
     ctxRef.current?.stroke();
   };
 
   const endDrawing = () => {
     ctxRef.current?.closePath();
+
     setIsDrawing(false);
   };
 
