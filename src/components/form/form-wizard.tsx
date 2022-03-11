@@ -61,13 +61,7 @@ export const FormWizard = () => {
           </span>
           {step.label}
         </h2>
-        <DrawContainer
-          width={width}
-          step_index={step_index}
-          bumpStepIndex={() => setStep_index(step_index + 1)}
-          className="mr-auto ml-auto"
-          variant="primary"
-        />
+        <DrawContainer width={width} step_index={step_index} bumpStepIndex={() => setStep_index(step_index + 1)} />
       </div>
     </div>
   );

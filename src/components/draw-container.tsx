@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { getText } from "../api";
 import useStore from "../store";
-import { fallBack } from "./form/fallback";
 import steps from "./form/steps";
 import LoadingIndicator from "./loading-indicator";
 
@@ -9,12 +8,9 @@ export const DrawContainer = ({
   width,
   bumpStepIndex,
   step_index,
-  variant,
 }: {
   bumpStepIndex: () => void;
-  className?: string;
   step_index: number;
-  variant: "primary" | "secondary" | "accent";
   width: number;
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>();
@@ -38,7 +34,7 @@ export const DrawContainer = ({
         ctxRef.current = ctx;
       }
 
-      var heightRatio = 0.75;
+      const heightRatio = 0.75;
       canvas.width = width;
       canvas.height = canvas.width * heightRatio;
     }
@@ -104,8 +100,9 @@ export const DrawContainer = ({
         res = await getText(file);
       }
       const name = steps[step_index].name;
-      const val = res?.text?.replace(/(\r\n|\n|\r)/gm, "");
-      setFormState(name, val || fallBack[name]);
+      const _val = res?.text?.replace(/(\r\n|\n|\r)/gm, "");
+      const value = _val || hasDrawn ? "Kunde inte tyda handstilen." : "-";
+      setFormState(name, value);
       bumpStepIndex();
     }
     canvasRef.current = undefined;
@@ -114,14 +111,14 @@ export const DrawContainer = ({
   };
 
   if (isLoading) {
-    return <LoadingIndicator className="h-full" />;
+    return <LoadingIndicator />;
   }
 
   return (
     <>
       <canvas
         style={{ touchAction: "none" }}
-        className={`ml-auto mr-auto border border-solid border-${variant}`}
+        className={`ml-auto mr-auto border border-solid border-primary`}
         onMouseDown={startDrawing}
         onTouchStart={startDrawing}
         onMouseUp={endDrawing}

@@ -1,18 +1,18 @@
-export const LoadingIndicator = ({ className }: { className?: string }) => (
-  <div className="text-center p-5 ">
+export const LoadingIndicator = () => (
+  <div className="text-center p-5">
     <div
-      className={`radial-progress text-secondary ${className}`}
+      className="radial-progress text-secondary"
       style={
         {
           "animation-name": "spin",
-          "animation-duration": "2000ms",
+          "animation-duration": "1500ms",
           "animation-iteration-count": "infinite",
           "animation-timing-function": "linear",
-          "--value": "70",
+          "--value": "65",
         } as any
       }
     />
-    <div className="text-lg text-gray-400">Sparar uppgifter</div>
+    <div className="text-lg text-gray-400">Tolkar handstil</div>
   </div>
 );
 
